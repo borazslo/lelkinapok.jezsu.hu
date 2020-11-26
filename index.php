@@ -2,105 +2,75 @@
 
 define("TMPFOLDER", sys_get_temp_dir ( ).'/'); // chown www-data
 
+$menu = [	
+	'bevezeto' => [
+		'Bevezető',
+		'menu' => [
+			'cimlap' => 'Címlap',
+			'copyrightoldal' => 'Szerzők és adatok',
+			'tartalomjegyzek' => 'Tartalomjegyzék'
+		]
+	],
+	'alapgondolatok' => [
+		'Alapgondolatok',
+		'menu' => [
+			'alapgondolatok#tortenetunk' => 'Iskolai lelkigyakorlatos kultúránk története',
+			'alapgondolatok#a_siker' => 'A siker',
+			'alapgondolatok#emberkepunk' => 'Emberképünk',
+			'alapgondolatok#egyuttmukodes' => 'Együttműködés',
+			'alapgondolatok#csend' => 'Csend',
+			'alapgondolatok#alkotas' => 'Alkotás és a szimbólumok',
+			'alapgondolatok#kortas_vezetes' => 'Kortárs vezetés és kiscsoport',
+			'alapgondolatok#megosztas' => 'Megosztás'
+		] 
+	],
+	'lelkinap_leirasok' => [
+		'Lelkinap leírások',
+		'menu' => [
+			'lelkinap_az_utrol' => 'Lelkinap az útról',
+			'lelkinap_a_halarol' => 'Lelkinap a háláról',
+			'lelkinap_a_miatyankrol' => 'Lelkinap a Miatyánkról',
+			'betlehemes_lelkinap' => 'Betlehmes lelkinap',
+			'lelkinap_a_megtisztulasarol' => 'Lelkinap a megtisztulásról',
+			'lelkinap_a_nevadas_erejerol' => 'Lelkinap a névadás erejéről',
+		]
+	],
+	'tippek_es_trukkok' => 'Tippek és Trükkök',
+	'mellekletek' => [
+		'Mellékletek',
+		'menu' => [
+			'hogyan_vezess' => 'Hogyan vezess kiscsoportos?',
+			'jatekok' => 'Játékok'
+		]
+	]
+];
 
-$fejezetek = array(
-	21 => array(
-		'title' => '2.1 Számlás hálás',
-		'id' => '1XjhFEOH_-KZVLQ0_hQr0qAqs0hin64mbkkHG9-G0zvM'
-		),
-	23 => array(
-		'title' => '2.3 Miatyánk',
-		'id' => '1EuRajjJ8HMJ77fTzFMqEW113hw0MlqYdHOzsmNSKSY4'
-		),
-	3 => array(		
-		'title' => '3. Teljes preparátum',
-		'id'=> '1ILMyp4xiu5UYemc8VAKSJ76BTmJbHHX58r78LxPU_TM' 
-		)
 
-	);
-
-if(isset($_REQUEST['id']) AND in_array($_REQUEST['id'], array(3,21,23))) {
-	$id = $_REQUEST['id'];	
-} else {
-	$id = 3;	
-}
-$fejezet = $fejezetek[$id];
-
-define("SELF", $_SERVER['PHP_SELF']."?id=".$id);
-
-
-function getGoogleFile($fileId) {
-	
-	$tmpfilename = TMPFOLDER.'lelkinap_'.$fileId.'.gdocs';
-	if (file_exists($tmpfilename) AND filemtime($tmpfilename) > strtotime("-10 minutes") AND (!isset($_REQUEST['update']) OR $_REQUEST['update'] == false)) {
-		//File is up to date!	
+if(isset($_REQUEST['q'])) {	
+	if(file_exists($_REQUEST['q'].".html")) {
+		$q = $_REQUEST['q'];		
+	} elseif($_REQUEST['q'] = 'tippek_es_trukkok') {
+		$q = 'lelkinap_az_utrol';
 	} else {
-		//echo "kell nekünk";
-		//Download the file.
-		$content = file_get_contents('https://docs.google.com/feeds/download/documents/export/Export?id='.$fileId.'&exportFormat=txt');
-		file_put_contents($tmpfilename, $content);
-		//echo "$tmpfilename has been downloaded ";
+		$q = '404';
 	}
-	$return = file_get_contents($tmpfilename);	
-	return array(
-		'fileId' => $fileId,
-		'content' => $return,
-		'filemtime' => filemtime($tmpfilename)
-	);
+} else {
+	$q = 'cimlap';
 }
 
-
-function getJatekok() {
-	$file = getGoogleFile('1YHQV8XQchYpuVNEPgHawqB1Dmuk1P70nRWcRSDBneHE');
-	preg_match_all('/<jatek(.*?)<\/jatek>/si', $file['content'], $matches);
-	
-
-	$jatekok = [];
-	foreach($matches[0] as $match) {
-		$jatek = [];
-		preg_match('/<jatek id=(.*?)>/i',$match,$id);
-		$jatek['id'] = trim($id[1]);
-		
-
-		foreach(array('cím','helyszin','tipus','leiras','forrás','egymondat') as $key ) {
-			preg_match('/<'.$key.'>(.*?)<\/'.$key.'>/si', $match, $value);
-			$jatek[$key] = trim($value[1]);
-
-		}
-		
-		$jatekok[$jatek['id']] = $jatek;
-
-	}
-	return $jatekok;
-
+function return_output($file){
+    ob_start();
+    include $file;
+    return ob_get_clean();
 }
+$content = return_output($q.".html");
 
-function insertJatek($match) {
-	global $jatekok;
-	
-	$jatek = $jatekok[trim($match[1])];
-	
-	if(!$jatek) {
-		return "<div class='alert alert-danger'>Hiányzik egy játék! Nincs olyan, hogy: ".trim($match[1])."!</div>";
-	}
 
-	$return = '<div class="card">
-		<h5 class="card-header collapsed" data-toggle="collapse" href="#gameCollapse_'.$jatek['id'].'">'.$jatek['cím'].'<cimkieg>'.$jatek['tipus'].'</cimkieg><br/>
-		<small>'.$jatek['egymondat'].'</small></h5>
-		<div id="gameCollapse_'.$jatek['id'].'" class="collapse card-body">      
-			<p>'.$jatek['leiras'].'</p>     
-			<footer class="blockquote-footer">'.$jatek['forrás'].'</footer>
-		</div>
-	 </div>';
 
-	
-	return $return;
-	
 
-}
+$content = preg_replace('/<head>.*<\/head>/si','',$content);
+$content = preg_replace('/<(\/|)(html|body)>/i','',$content);
 
-$file = getGoogleFile($fejezet['id']);
-$content = $file['content'];
 
 
 /* Játékok betétele */
@@ -167,6 +137,59 @@ $content = preg_replace_callback('/<games>(.*?)<\/games>/si',
 
 
 include 'layout.html';
+
+
+
+function getJatekok() {
+	$file['content'] = return_output("jatekok.html");
+	
+	preg_match_all('/<jatek(.*?)<\/jatek>/si', $file['content'], $matches);
+	
+
+	$jatekok = [];
+	foreach($matches[0] as $match) {
+		$jatek = [];
+		preg_match('/<jatek id=(.*?)>/i',$match,$id);
+		$jatek['id'] = trim($id[1]);
+		
+
+		foreach(array('cím','helyszin','tipus','leiras','forrás','egymondat') as $key ) {
+			preg_match('/<'.$key.'>(.*?)<\/'.$key.'>/si', $match, $value);
+			$jatek[$key] = trim($value[1]);
+
+		}
+		
+		$jatekok[$jatek['id']] = $jatek;
+
+	}
+	return $jatekok;
+
+}
+
+function insertJatek($match) {
+	global $jatekok;
+	
+	$jatek = $jatekok[trim($match[1])];
+	
+	if(!$jatek) {
+		return "<div class='alert alert-danger'>Hiányzik egy játék! Nincs olyan, hogy: ".trim($match[1])."!</div>";
+	}
+
+	$return = '<div class="card">
+		<h5 class="card-header collapsed" data-toggle="collapse" href="#gameCollapse_'.$jatek['id'].'">'.$jatek['cím'].'<cimkieg>'.$jatek['tipus'].'</cimkieg><br/>
+		<small>'.$jatek['egymondat'].'</small></h5>
+		<div id="gameCollapse_'.$jatek['id'].'" class="collapse card-body">      
+			<p>'.$jatek['leiras'].'</p>     
+			<footer class="blockquote-footer">'.$jatek['forrás'].'</footer>
+		</div>
+	 </div>';
+
+	
+	return $return;
+	
+
+}
+
 
 ?>
 

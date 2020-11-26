@@ -37,53 +37,39 @@
 	<!-- -->
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item">
-	        <a class="nav-link disabled" href="#">Elősző</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link disabled" href="#">Alapgondolatok</a>
-	      </li>
-	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          Lelkinap leírások
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	          <a class="dropdown-item active" href="<?php  echo $_SERVER['PHP_SELF']; ?>?id=3">Az Út</a>
-	          <a class="dropdown-item" href="<?php  echo $_SERVER['PHP_SELF']; ?>?id=21">Számlás hálás</a>
-	          <a class="dropdown-item" href="<?php  echo $_SERVER['PHP_SELF']; ?>?id=23">Miatyánk</a>
-	          <a class="dropdown-item disabled" href="#">Betlehem</a>
-	          <a class="dropdown-item disabled" href="#">Mosógépes</a>
-	          <!-- <div class="dropdown-divider"></div> -->
-	          <!--<a class="dropdown-item" href="#">Something else here</a>-->
-	        </div>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link active" href="<?php  echo $_SERVER['PHP_SELF']; ?>?id=3">Kipreparált - hogyan csináld</a>
-	      </li>
-		  <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          Mellékletek
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	          <a class="dropdown-item disabled" href="#">Csoportvezetőknek</a>	          
-	        </div>
-	      </li>
+		<?php
+			foreach($menu as $uri => $item) {
+				if(!is_array($item)) {
+					echo '<li class="nav-item">
+								<a class="nav-link '.($uri == $q ? 'active' : '' ).'" href="'.$_SERVER['PHP_SELF'].'?q='.$uri.'">'.$item.'</a>
+						   </li>';
+				} else {
+					echo '<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						'.$item[0].'
+						</a>'."\n";
+					echo '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
+					
+					foreach($item['menu'] as $suburi => $subitem) {
+						
+						echo '<a class="dropdown-item '.($suburi == $q ? 'active' : '' ).'" href="'.$_SERVER['PHP_SELF'].'?q='.$suburi.'">'.$subitem.'</a>'."\n";
+					}
+					
+	          
+				echo '</div>
+				</li>';
+				
+				
+				
+				}
+			
+			
+			}
+		?>
+	  
 	    </ul>	    
 	  </div>
   	
-
-<!----
-	<div class="btn-group" role="group" aria-label="Basic example">
-	  <button type="button" id="buttonLeader" class="btn btn-info">Csoportvezető</button>
-	  <button type="button" id="buttonOrganizer" class="btn btn-warning disabled">Szervező</button>	  
-	</div>
-	-->	
-	
-	  <span class="navbar-text">
-
-  		Utoljára betöltve a GDrive-ról: <a href="<?php  echo SELF; ?>&update=true" class="alert-link"><?php echo date ("M. d. H:i", $file['filemtime']); ?></a>. 
-	</span>
-
 
 
 	<ul class="navbar-nav ml-auto">
