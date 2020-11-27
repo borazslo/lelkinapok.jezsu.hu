@@ -1,6 +1,10 @@
-Order deny,allow
-Deny from all 
-#Allow from all
-<FilesMatch "^$|index\.php|index\.html|lelkinapok\.*">
-  Allow from all
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?q=$1 [QSA,L]
+
+Order allow,deny
+Allow from all
+<FilesMatch "\.html">
+  Deny from all
 </FilesMatch>
+

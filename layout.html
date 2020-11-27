@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?php echo $fejezet['title']; ?> - Lelkinapok</title>
+	<title><?php echo $title; ?> | Lelkinapok</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 
@@ -14,19 +14,15 @@
 
 
 	<link rel="stylesheet" href="lelkinapok.css">
-
-	
-
 	<script src="lelkinapok.js"></script>
-
-
 </head>
 <body>
 
 
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-  	<a class="navbar-brand" href="<?php echo $_SERVER['PHP_SELF']; ?>">Lelkinap</a>
+  	<a class="navbar-brand" href="<?php echo $_SERVER['PHP_SELF']; ?>">Lelkinapok</a>
   	
+	
 
   	<!-- Collapse button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -41,7 +37,7 @@
 			foreach($menu as $uri => $item) {
 				if(!is_array($item)) {
 					echo '<li class="nav-item">
-								<a class="nav-link '.($uri == $q ? 'active' : '' ).'" href="'.$_SERVER['PHP_SELF'].'?q='.$uri.'">'.$item.'</a>
+								<a class="nav-link '.($uri == $q ? 'active' : '' ).'" href="'.$uri.'">'.$item.'</a>
 						   </li>';
 				} else {
 					echo '<li class="nav-item dropdown">
@@ -52,7 +48,7 @@
 					
 					foreach($item['menu'] as $suburi => $subitem) {
 						
-						echo '<a class="dropdown-item '.($suburi == $q ? 'active' : '' ).'" href="'.$_SERVER['PHP_SELF'].'?q='.$suburi.'">'.$subitem.'</a>'."\n";
+						echo '<a class="dropdown-item '.($suburi == $q ? 'active' : '' ).'" href="'.$suburi.'">'.$subitem.'</a>'."\n";
 					}
 					
 	          
@@ -82,6 +78,5 @@
 <br/><br/>
 
 <?php echo $content ?>
-
 </body>
 </html>
