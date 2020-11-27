@@ -68,6 +68,9 @@ $content = return_output($q.".html");
 
 
 
+if(preg_match('/<title>(.*?)<\/title>/s',$content,$matches))
+	$title = $matches[1];
+
 $content = preg_replace('/<head>.*<\/head>/si','',$content);
 $content = preg_replace('/<(\/|)(html|body)>/i','',$content);
 
