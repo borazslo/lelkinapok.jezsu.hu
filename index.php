@@ -49,8 +49,10 @@ $menu = [
 if(isset($_REQUEST['q'])) {	
 	if(file_exists($_REQUEST['q'].".html")) {
 		$q = $_REQUEST['q'];		
-	} elseif($_REQUEST['q'] = 'tippek_es_trukkok') {
+	} elseif($_REQUEST['q'] == 'tippek_es_trukkok') {
 		$q = 'lelkinap_az_utrol';
+	} elseif ($_REQUEST['q'] == '') {
+		$q = 'cimlap';
 	} else {
 		$q = '404';
 	}
@@ -65,14 +67,38 @@ function return_output($file){
 }
 $content = return_output($q.".html");
 
-
-
-
 if(preg_match('/<title>(.*?)<\/title>/s',$content,$matches))
 	$title = $matches[1];
 
 $content = preg_replace('/<head>.*<\/head>/si','',$content);
 $content = preg_replace('/<(\/|)(html|body)>/i','',$content);
+
+$content = '<p class="display-1">'.$title.'</p>'.$content;
+
+
+
+if($q == 'jatekok') {
+	$content = preg_replace('/<cím>(.*?)<\/cím>/si','<h2>$1</h2><div>',$content);
+	$content = preg_replace('/<helyszin>(.*?)<\/helyszin>/si','',$content);
+	$content = preg_replace('/<tipus>(.*?)<\/tipus>/si','<p><i>$1</i></p>',$content);
+	$content = preg_replace('/<egymondat>(.*?)<\/egymondat>/si','',$content);
+	$content = preg_replace('/<forrás>(.*?)<\/forrás>/i','<footer class="blockquote-footer">$1</footer>',$content);
+	
+	$content = preg_replace_callback('/<leiras>(.*?)<\/leiras>/si', function($match) {
+			$paragraphs = explode("\n",$match[1]);
+			$return = '';
+			foreach($paragraphs as $par) {
+				$return .= "<p>".$par."</p>\n";
+			}			
+			return $return;
+			} , $content);
+
+	
+	
+	
+	$content = preg_replace('/<\/jatek>/si','</div></jatek>',$content);
+}
+
 
 
 
