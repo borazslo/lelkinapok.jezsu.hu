@@ -73,7 +73,7 @@ if(preg_match('/<title>(.*?)<\/title>/s',$content,$matches))
 $content = preg_replace('/<head>.*<\/head>/si','',$content);
 $content = preg_replace('/<(\/|)(html|body)>/i','',$content);
 
-$content = '<p class="display-1">'.$title.'</p>'.$content;
+$content = '<span class="chapter-title">'.$title.'</span>'.$content;
 
 
 
@@ -120,9 +120,9 @@ $content = preg_replace('/<duration>/i',' | ',$content);
 $content = preg_replace('/<\/duration>/i','',$content);
 
 
-$content = preg_replace('/<ido>(.*?)<\/ido>/i','<span class="ido"> | $1 </span>',$content);
+$content = preg_replace('/<ido>(.*?)<\/ido>/i','<span class="ido text-muted"> | $1 </span>',$content);
 
-$content = preg_replace('/<cimkieg>(.*?)<\/cimkieg>/i',' <small class="text-muted">» $1 «</small>',$content);
+$content = preg_replace('/<cimkieg>(.*?)<\/cimkieg>/si',' <span class="cimkieg">‹ $1 ›</span>',$content);
 
 
 //Címekben kettőspontból nagykötőjel / gonodaltjel / desh
