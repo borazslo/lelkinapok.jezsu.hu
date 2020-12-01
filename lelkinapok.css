@@ -57,7 +57,7 @@
 
 		}
 		.comment:before{
-			content: "•";
+			content: "• ";
 		}
 
 		p {
@@ -135,7 +135,19 @@
 		ul li:before {
 		content: " \27f6 \0020";
 	    }
+		ul li {
+			text-indent: -22px;
+			text-align: justify;
+	    }
+		ul {
+			    padding-inline-start: 80px;
+
+		}
 		
+		.nav-item {
+			text-indent: unset;
+			text-align: unset;
+		}
 		.nav-item:before {
 		content: "";
 	    }
