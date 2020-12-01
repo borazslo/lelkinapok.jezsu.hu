@@ -75,8 +75,6 @@ $content = preg_replace('/<(\/|)(html|body)>/i','',$content);
 
 $content = '<span class="chapter-title">'.$title.'</span>'.$content;
 
-
-
 if($q == 'jatekok') {
 	$content = preg_replace('/<cím>(.*?)<\/cím>/si','<h2>$1</h2><div>',$content);
 	$content = preg_replace('/<helyszin>(.*?)<\/helyszin>/si','',$content);
@@ -107,7 +105,6 @@ if($q == 'jatekok') {
 $jatekok = getJatekok();
 $content = preg_replace_callback('/<jatek id=(.*?)\/>/i', 'insertJatek', $content);
 
-
 $content = preg_replace('/<organizerTip>/i','<p class="organizerTip">',$content);
 $content = preg_replace('/<\/organizerTip>/i','</p>',$content);
 $content = preg_replace('/<szervezonek>(.*?)<\/szervezonek>/i','<p class="organizerTip">$1</p>',$content);
@@ -124,17 +121,28 @@ $content = preg_replace('/<ido>(.*?)<\/ido>/i','<span class="ido text-muted"> | 
 
 $content = preg_replace('/<cimkieg>(.*?)<\/cimkieg>/si',' <span class="cimkieg">‹ $1 ›</span>',$content);
 
-
 //Címekben kettőspontból nagykötőjel / gonodaltjel / desh
-for($i=1;$i<=5;$i++)
-	$content = preg_replace('/<(h'.$i.')(.*?)\:(.*?)<\/h'.$i.'>/i','<$1$2 — $3</$1>',$content);
-
-
-
-$content = preg_replace('/<h1>/i','<h1 class="text-uppercase">',$content);
+for($i=1;$i<=4;$i++) { // 5 esetné az Útról rész elszáll :(
+	$content = preg_replace('/<(h'.$i.')(.*?)\:(.*?)<\/h'.$i.'>/si','<$1$2 — $3</$1>',$content);
+}
 
 $content = preg_replace('/<csopvez>(.*?)<\/csopvez>/is','<p class="leaderTip">$1</p>',$content);
 
+//tan átalakítása sorszámozással 
+	$content = preg_replace_callback('/<(tanacs|otlet)>(.*?)<\/(tanacs|otlet)>/si',
+		function ($matches) {  
+			if($matches[1] == 'tanacs') $matches[1] = 'tanács'; 
+			elseif($matches[1] == 'otlet') $matches[1] = 'ötlet';
+		//echo "<pre>"; print_r($matches);
+				return '<dl class="row">
+				<dt class="col-sm-2">'.$matches[1].'</dt>
+				<dd class="col-sm-10 comment">'.$matches[2].'</dd>
+				</dl>';
+			
+		}
+	, $content);
+
+// Játékok beillesztése id alapján
 $gameID = 0;
 $content = preg_replace_callback('/<games>(.*?)<\/games>/si',
 		function ($matches) {
