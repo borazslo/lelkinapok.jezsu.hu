@@ -14,14 +14,14 @@ $menu = [
 	'alapgondolatok' => [
 		'Alapgondolatok',
 		'menu' => [
-			'alapgondolatok#tortenetunk' => 'Iskolai lelkigyakorlatos kultúránk története',
-			'alapgondolatok#a_siker' => 'A siker',
-			'alapgondolatok#emberkepunk' => 'Emberképünk',
-			'alapgondolatok#egyuttmukodes' => 'Együttműködés',
-			'alapgondolatok#csend' => 'Csend',
-			'alapgondolatok#alkotas' => 'Alkotás és a szimbólumok',
-			'alapgondolatok#kortas_vezetes' => 'Kortárs vezetés és kiscsoport',
-			'alapgondolatok#megosztas' => 'Megosztás'
+			'alapgondolatok#cim_1-1' => 'Iskolai lelkigyakorlatos kultúránk története',
+			'alapgondolatok#cim_1-2' => 'A siker',
+			'alapgondolatok#cim_1-3' => 'Emberképünk',
+			'alapgondolatok#cim_1-4' => 'Együttműködés',
+			'alapgondolatok#cim_1-5' => 'Csend',
+			'alapgondolatok#cim_1-6' => 'Alkotás és a szimbólumok',
+			'alapgondolatok#cim_1-7' => 'Kortárs vezetés és kiscsoport',
+			'alapgondolatok#cim_1-8' => 'Megosztás'
 		] 
 	],
 	'lelkinap_leirasok' => [
@@ -30,7 +30,7 @@ $menu = [
 			'lelkinap_az_utrol' => 'Lelkinap az útról',
 			'lelkinap_a_halarol' => 'Lelkinap a háláról',
 			'lelkinap_a_miatyankrol' => 'Lelkinap a Miatyánkról',
-			'betlehemes_lelkinap' => 'Betlehmes lelkinap',
+			'betlehemes_lelkinap' => 'Betlehemes lelkinap',
 			'lelkinap_a_megtisztulasarol' => 'Lelkinap a megtisztulásról',
 			'lelkinap_a_nevadas_erejerol' => 'Lelkinap a névadás erejéről',
 		]
