@@ -122,8 +122,11 @@ $content = preg_replace('/<ido>(.*?)<\/ido>/i','<span class="ido text-muted"> | 
 $content = preg_replace('/<cimkieg>(.*?)<\/cimkieg>/si',' <span class="cimkieg">‹ $1 ›</span>',$content);
 
 //Címekben kettőspontból nagykötőjel / gonodaltjel / desh
-for($i=1;$i<=4;$i++) { // 5 esetné az Útról rész elszáll :(
-	$content = preg_replace('/<(h'.$i.')(.*?)\:(.*?)<\/h'.$i.'>/si','<$1$2 — $3</$1>',$content);
+for($i=1;$i<=5;$i++) {
+	$content = preg_replace_callback('/<(h'.$i.')(.*?)>(.*?)<\/h'.$i.'>/si',
+		function ($matches) {
+			return "<".$matches[1]." ".$matches[2].">".preg_replace('/:/si',' — ',$matches[3])."</".$matches[1].">";
+		},$content);
 }
 
 $content = preg_replace('/<csopvez>(.*?)<\/csopvez>/is','<p class="leaderTip">$1</p>',$content);
