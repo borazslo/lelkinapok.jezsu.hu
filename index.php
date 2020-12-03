@@ -7,6 +7,7 @@ $menu = [
 		'Bevezető',
 		'menu' => [
 			'cimlap' => 'Címlap',
+			'video' => 'Köszöntő',
 			'copyrightoldal' => 'Szerzők és adatok',
 			'tartalomjegyzek' => 'Tartalomjegyzék'
 		]
