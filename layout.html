@@ -19,7 +19,8 @@
 	<script src="lelkinapok.js"></script>
 </head>
 
-<body>
+
+<body class=" <?php echo ($q == 'cimlap' ? ' cimlap ' : '' ); ?>">
 	<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
 		<a class="navbar-brand" href="<?php echo $_SERVER['PHP_SELF']; ?>">Lelkinapok</a>  
 		<!-- Collapse button -->

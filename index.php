@@ -69,11 +69,12 @@ $content = return_output($q.".html");
 
 if(preg_match('/<title>(.*?)<\/title>/s',$content,$matches))
 	$title = $matches[1];
+else $title = false;
 
 $content = preg_replace('/<head>.*<\/head>/si','',$content);
 $content = preg_replace('/<(\/|)(html|body)>/i','',$content);
 
-$content = '<span class="chapter-title">'.$title.'</span>'.$content;
+if ($title) $content = '<span class="chapter-title">'.$title.'</span>'.$content;
 
 if($q == 'jatekok') {
 	$content = preg_replace('/<cím>(.*?)<\/cím>/si','<h2>$1</h2><div>',$content);
