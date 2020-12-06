@@ -39,7 +39,9 @@
 			font-size: 1rem;
 		}
 
-		
+td > ul {
+	margin: 0;
+}
 		
 		.ido {
 			font-weight: normal;
