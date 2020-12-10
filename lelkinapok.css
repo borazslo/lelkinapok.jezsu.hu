@@ -143,9 +143,10 @@ td > ul {
 	    }
 		ul {
 			    padding-inline-start: 80px;
-
 		}
-		
+		#contents li:before, #contributors li:before{
+    content: none;
+}
 		.nav-item {
 			text-indent: unset;
 			text-align: unset;
