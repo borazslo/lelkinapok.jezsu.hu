@@ -148,6 +148,7 @@
 		}
 		.row {
   			  display: flex;
+		}
 		.nav-item {
 			text-indent: unset;
 			text-align: unset;
