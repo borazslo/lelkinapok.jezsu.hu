@@ -1,4 +1,7 @@
+
 $(function(){
+
+
     	if(window.location.hash) {
       		var hash = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
       		
@@ -8,7 +11,7 @@ $(function(){
       	// hash found
   		} 
     	
-  
+
   
             $(".organizerTip").addClass("alert alert-warning");
             $(".leaderTip").addClass("alert alert-info");
@@ -85,6 +88,7 @@ $(function(){
 			});
 
 
-
+			 $("body").css({'padding-top': $('nav.navbar').outerHeight()});
+			 /* $("h1, h2, h3, h4").css({'padding-top': $('nav.navbar').outerHeight()}); */
             
         });

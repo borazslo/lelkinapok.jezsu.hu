@@ -7,10 +7,10 @@ $menu = [
 		'Bevezető',
 		'menu' => [
 			'cimlap' => 'Címlap',
-			'video' => 'Köszöntő',
-			'bevezeto' => 'Bevezető',
-			'copyrightoldal' => 'Szerzők és adatok',
-			'tartalomjegyzek' => 'Tartalomjegyzék'
+			'cimlap#video' => 'Köszöntő',
+			'cimlap#bevezeto' => 'Bevezető',
+			'cimlap#copyrightoldal' => 'Szerzők és adatok',
+			'cimlap#tartalomjegyzek' => 'Tartalomjegyzék'
 		]
 	],
 	'alapgondolatok' => [
@@ -67,116 +67,129 @@ function return_output($file){
     include $file;
     return ob_get_clean();
 }
-$content = return_output($q.".html");
 
-if(preg_match('/<title>(.*?)<\/title>/s',$content,$matches))
-	$title = $matches[1];
-else $title = false;
+$content = getContent($q);
 
-$content = preg_replace('/<head>.*<\/head>/si','',$content);
-$content = preg_replace('/<(\/|)(html|body)>/i','',$content);
-
-if ($title) $content = '<span class="chapter-title">'.$title.'</span>'.$content;
-
-if($q == 'jatekok') {
-	$content = preg_replace('/<cím>(.*?)<\/cím>/si','<h2>$1</h2><div>',$content);
-	$content = preg_replace('/<helyszin>(.*?)<\/helyszin>/si','',$content);
-	$content = preg_replace('/<tipus>(.*?)<\/tipus>/si','<p><i>$1</i></p>',$content);
-	$content = preg_replace('/<egymondat>(.*?)<\/egymondat>/si','',$content);
-	$content = preg_replace('/<forrás>(.*?)<\/forrás>/i','<footer class="blockquote-footer">$1</footer>',$content);
-	
-	$content = preg_replace_callback('/<leiras>(.*?)<\/leiras>/si', function($match) {
-			$paragraphs = explode("\n",$match[1]);
-			$return = '';
-			foreach($paragraphs as $par) {
-				$return .= "<p>".$par."</p>\n";
-			}			
-			return $return;
-			} , $content);
-
-	
-	
-	
-	$content = preg_replace('/<\/jatek>/si','</div></jatek>',$content);
+if($q == 'cimlap') {
+	$content .= getContent('video');
+	$content .= getContent('bevezeto');
+	$content .= getContent('copyrightoldal');
+	$content .= getContent('tartalomjegyzek');
 }
 
+function getContent($q) {	
+	global $title;
+	$content = return_output($q.".html");
+
+	if(preg_match('/<title>(.*?)<\/title>/s',$content,$matches))
+		$title = $matches[1];
+	else $title = false;
+
+	$content = preg_replace('/<head>.*<\/head>/si','',$content);
+	$content = preg_replace('/<(\/|)(html|body)>/i','',$content);
+
+	if ($title) $content = '<span class="chapter-title" id="'.$q.'">'.$title.'</span>'.$content;
+
+	if($q == 'jatekok') {
+		$content = preg_replace('/<cím>(.*?)<\/cím>/si','<h2>$1</h2><div>',$content);
+		$content = preg_replace('/<helyszin>(.*?)<\/helyszin>/si','',$content);
+		$content = preg_replace('/<tipus>(.*?)<\/tipus>/si','<p><i>$1</i></p>',$content);
+		$content = preg_replace('/<egymondat>(.*?)<\/egymondat>/si','',$content);
+		$content = preg_replace('/<forrás>(.*?)<\/forrás>/i','<footer class="blockquote-footer">$1</footer>',$content);
+		
+		$content = preg_replace_callback('/<leiras>(.*?)<\/leiras>/si', function($match) {
+				$paragraphs = explode("\n",$match[1]);
+				$return = '';
+				foreach($paragraphs as $par) {
+					$return .= "<p>".$par."</p>\n";
+				}			
+				return $return;
+				} , $content);
+
+		
+		
+		
+		$content = preg_replace('/<\/jatek>/si','</div></jatek>',$content);
+	}
 
 
 
-/* Játékok betétele */
-//Könyvkiadás miatt most az egysoros változatokkal //
-$jatekok = getJatekok();
-$content = preg_replace_callback('/<jatek id=("|)([^"]*)("| ).*?\/>/i', 'insertJatek', $content);
 
-$content = preg_replace('/<organizerTip>/i','<p class="organizerTip">',$content);
-$content = preg_replace('/<\/organizerTip>/i','</p>',$content);
-$content = preg_replace('/<szervezonek>(.*?)<\/szervezonek>/i','<p class="organizerTip">$1</p>',$content);
+	/* Játékok betétele */
+	//Könyvkiadás miatt most az egysoros változatokkal //
+	$jatekok = getJatekok();
+	$content = preg_replace_callback('/<jatek id=("|)([^"]*)("| ).*?\/>/i', 'insertJatek', $content);
 
-$content = preg_replace('/<quote>/i','<span class="quote">„',$content);
-$content = preg_replace('/<\/quote>/i','”</span>',$content);
+	$content = preg_replace('/<organizerTip>/i','<p class="organizerTip">',$content);
+	$content = preg_replace('/<\/organizerTip>/i','</p>',$content);
+	$content = preg_replace('/<szervezonek>(.*?)<\/szervezonek>/i','<p class="organizerTip">$1</p>',$content);
 
-
-$content = preg_replace('/<duration>/i',' | ',$content);
-$content = preg_replace('/<\/duration>/i','',$content);
+	$content = preg_replace('/<quote>/i','<span class="quote">„',$content);
+	$content = preg_replace('/<\/quote>/i','”</span>',$content);
 
 
-$content = preg_replace('/<ido>(.*?)<\/ido>/i','<span class="ido text-muted"> | $1 </span>',$content);
+	$content = preg_replace('/<duration>/i',' | ',$content);
+	$content = preg_replace('/<\/duration>/i','',$content);
 
-$content = preg_replace('/<cimkieg>(.*?)<\/cimkieg>/si',' <span class="cimkieg">‹ $1 ›</span>',$content);
 
-//Címekben kettőspontból nagykötőjel / gonodaltjel / desh
-for($i=1;$i<=5;$i++) {
-	$content = preg_replace_callback('/<(h'.$i.')(.*?)>(.*?)<\/h'.$i.'>/si',
-		function ($matches) {
-			return "<".$matches[1]." ".$matches[2].">".preg_replace('/:/si',' — ',$matches[3])."</".$matches[1].">";
-		},$content);
-}
+	$content = preg_replace('/<ido>(.*?)<\/ido>/i','<span class="ido text-muted"> | $1 </span>',$content);
 
-$content = preg_replace('/<csopvez>(.*?)<\/csopvez>/is','<p class="leaderTip">$1</p>',$content);
+	$content = preg_replace('/<cimkieg>(.*?)<\/cimkieg>/si',' <span class="cimkieg">‹ $1 ›</span>',$content);
 
-//tan átalakítása sorszámozással 
-	$content = preg_replace_callback('/<(tanacs|otlet)>(.*?)<\/(tanacs|otlet)>/si',
-		function ($matches) {  
-			if($matches[1] == 'tanacs') $matches[1] = 'tanács'; 
-			elseif($matches[1] == 'otlet') $matches[1] = 'ötlet';
-		//echo "<pre>"; print_r($matches);
-				return '<dl class="row">
-				<dt class="col-sm-2">'.$matches[1].'</dt>
-				<dd class="col-sm-10 comment">'.$matches[2].'</dd>
-				</dl>';
-			
-		}
-	, $content);
+	//Címekben kettőspontból nagykötőjel / gonodaltjel / desh
+	for($i=1;$i<=5;$i++) {
+		$content = preg_replace_callback('/<(h'.$i.')(.*?)>(.*?)<\/h'.$i.'>/si',
+			function ($matches) {
+				return "<".$matches[1]." ".$matches[2].">".preg_replace('/:/si',' — ',$matches[3])."</".$matches[1].">";
+			},$content);
+	}
 
-// Játékok beillesztése id alapján
-$gameID = 0;
-$content = preg_replace_callback('/<games>(.*?)<\/games>/si',
-		function ($matches) {
-			$id = md5($matches[0]);
-			$return = '<div class="accordion md-accordion" id="'.$id.'" role="tablist" aria-multiselectable="true">';
-			
-			$return .= preg_replace_callback('/<game>(.*?)<\/game>/si',
-				function ($matches) { 
-					global $gameID;
-					$gameID++;
-					$return = '<div class="card">';
-					$matches[1] = preg_replace('/<type>(.*?)<\/type>/i',' <small class="text-muted">($1)</small>',$matches[1]);
-			 				
-					$return .= preg_replace(
-						'/<title>(.*?)<\/title>(.*?)<body>(.*?)<\/body>/si',
-						'<h5 class="card-header collapsed" data-toggle="collapse" href="#gameCollapse'.$gameID.'">$1</h5>$2<div id="gameCollapse'.$gameID.'" class="collapse card-body">$3</div>',
-						$matches[1]);
+	$content = preg_replace('/<csopvez>(.*?)<\/csopvez>/is','<p class="leaderTip">$1</p>',$content);
+
+	//tan átalakítása sorszámozással 
+		$content = preg_replace_callback('/<(tanacs|otlet)>(.*?)<\/(tanacs|otlet)>/si',
+			function ($matches) {  
+				if($matches[1] == 'tanacs') $matches[1] = 'tanács'; 
+				elseif($matches[1] == 'otlet') $matches[1] = 'ötlet';
+			//echo "<pre>"; print_r($matches);
+					return '<dl class="row">
+					<dt class="col-sm-2">'.$matches[1].'</dt>
+					<dd class="col-sm-10 comment">'.$matches[2].'</dd>
+					</dl>';
 				
-					$return .= '</div>';
-					return $return;		
-				},
-				$matches[1]);
-					
-			$return .= '</div>';
-            return $return;
-        },
-		$content);
+			}
+		, $content);
 
+	// Játékok beillesztése id alapján
+	$gameID = 0;
+	$content = preg_replace_callback('/<games>(.*?)<\/games>/si',
+			function ($matches) {
+				$id = md5($matches[0]);
+				$return = '<div class="accordion md-accordion" id="'.$id.'" role="tablist" aria-multiselectable="true">';
+				
+				$return .= preg_replace_callback('/<game>(.*?)<\/game>/si',
+					function ($matches) { 
+						global $gameID;
+						$gameID++;
+						$return = '<div class="card">';
+						$matches[1] = preg_replace('/<type>(.*?)<\/type>/i',' <small class="text-muted">($1)</small>',$matches[1]);
+								
+						$return .= preg_replace(
+							'/<title>(.*?)<\/title>(.*?)<body>(.*?)<\/body>/si',
+							'<h5 class="card-header collapsed" data-toggle="collapse" href="#gameCollapse'.$gameID.'">$1</h5>$2<div id="gameCollapse'.$gameID.'" class="collapse card-body">$3</div>',
+							$matches[1]);
+					
+						$return .= '</div>';
+						return $return;		
+					},
+					$matches[1]);
+						
+				$return .= '</div>';
+				return $return;
+			},
+			$content);
+	return "<section class='min-vh-100 ".$q."'><div class='container'>".$content."</div></section>";
+}
 
 
 include 'layout.html';

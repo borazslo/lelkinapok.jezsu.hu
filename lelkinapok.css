@@ -1,4 +1,4 @@
-	#accordionGames .card-header:after, .stories .card-header:after {
+		#accordionGames .card-header:after, .stories .card-header:after {
 		    font-family: 'FontAwesome';  
 		    content: "\f068";
 		    float: right; 
@@ -15,6 +15,22 @@
 			font-weight: bold;
 			margin-bottom: 5rem;
 		}
+		
+		
+		@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,700;1,400&display=swap');
+		body {			
+			font-family: 'Archivo', sans-serif;
+			padding-top: 60px; 
+
+		}
+		
+		.chapter-title::before, h1::before, h2::before, h3::before, h4::before {
+			content: '';
+			display: block;
+			height:      70px;
+			margin-top: -70px;
+		}
+		
 		
 		h1, h2, h3, h4  {
 			text-transform: uppercase;			
@@ -75,14 +91,6 @@
 		.underconstruction {
 			color: grey;
 		}
-
-		@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,700;1,400&display=swap');
-		body {			
-			font-family: 'Archivo', sans-serif;
-			padding-top: 70px;			
-
-		}
-		
 
 		.tips {
 			margin-left: 20%;
