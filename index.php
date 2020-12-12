@@ -8,6 +8,7 @@ $menu = [
 		'menu' => [
 			'cimlap' => 'Címlap',
 			'video' => 'Köszöntő',
+			'bevezeto' => 'Bevezető',
 			'copyrightoldal' => 'Szerzők és adatok',
 			'tartalomjegyzek' => 'Tartalomjegyzék'
 		]
@@ -105,7 +106,7 @@ if($q == 'jatekok') {
 /* Játékok betétele */
 //Könyvkiadás miatt most az egysoros változatokkal //
 $jatekok = getJatekok();
-$content = preg_replace_callback('/<jatek id=("|)([^"]*)("|).*?\/>/i', 'insertJatek', $content);
+$content = preg_replace_callback('/<jatek id=("|)([^"]*)("| ).*?\/>/i', 'insertJatek', $content);
 
 $content = preg_replace('/<organizerTip>/i','<p class="organizerTip">',$content);
 $content = preg_replace('/<\/organizerTip>/i','</p>',$content);
@@ -212,6 +213,7 @@ function insertJatek($match) {
 	global $jatekok;
 
 	$jatek = $jatekok[trim($match[2])];
+	
 	
 	if(!$jatek) {
 		return "<div class='alert alert-danger'>Hiányzik egy játék! Nincs olyan, hogy: ".trim($match[2])."!</div>";
