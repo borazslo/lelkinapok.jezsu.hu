@@ -143,9 +143,6 @@
 		#contents li:before, #contributors li:before{
     			content: none;
 		}
-		.colop {
-   			 margin-top: 0;
-		}
 		.row {
   			  display: flex;
 		}
