@@ -65,16 +65,13 @@
 			font-size: 1rem;
 			line-height: 1.6;
 		}
-		.comment {
+		.tanacs, .otlet {
 			font-style: italic;
 			text-indent: -4px;
 			text-align: justify;
 
 		}
-		.comment:before{
-			content: "• ";
-		}
-
+		
 		p {
 			display: block;
 		    margin-block-start: 0.3em;

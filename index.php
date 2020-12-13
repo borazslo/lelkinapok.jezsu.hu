@@ -152,14 +152,15 @@ function getContent($q) {
 	$content = preg_replace('/<csopvez>(.*?)<\/csopvez>/is','<p class="leaderTip">$1</p>',$content);
 
 	//tan átalakítása sorszámozással 
-		$content = preg_replace_callback('/<(tanacs|otlet)>(.*?)<\/(tanacs|otlet)>/si',
+		$content = preg_replace_callback('/<(tanacs|otlet|colop)>(.*?)<\/(tanacs|otlet|colop)>/si',
 			function ($matches) {  
-				if($matches[1] == 'tanacs') $matches[1] = 'tanács'; 
-				elseif($matches[1] == 'otlet') $matches[1] = 'ötlet';
+				if($matches[1] == 'tanacs') $matches[3] = 'tanács'; 
+				elseif($matches[1] == 'otlet') $matches[3] = 'ötlet';
+				elseif($matches[1] == 'colop') $matches[3] = 'cölöp';
 			//echo "<pre>"; print_r($matches);
 					return '<dl class="row">
-					<dt class="col-sm-2">'.$matches[1].'</dt>
-					<dd class="col-sm-10 comment">'.$matches[2].'</dd>
+					<dt class="col-sm-2">'.$matches[3].'</dt>
+					<dd class="col-sm-10 '.$matches[1].'">'.$matches[2].'</dd>
 					</dl>';
 				
 			}
