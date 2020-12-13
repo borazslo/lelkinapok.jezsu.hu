@@ -131,17 +131,9 @@ function getContent($q) {
 	
 	$content = preg_replace_callback('/<jatek id=("|)([^"]*)("| ).*?\/>/i', 'insertJatek', $content);
 
-	$content = preg_replace('/<organizerTip>/i','<p class="organizerTip">',$content);
-	$content = preg_replace('/<\/organizerTip>/i','</p>',$content);
-	$content = preg_replace('/<szervezonek>(.*?)<\/szervezonek>/i','<p class="organizerTip">$1</p>',$content);
-
-	$content = preg_replace('/<quote>/i','<span class="quote">„',$content);
-	$content = preg_replace('/<\/quote>/i','”</span>',$content);
-
 	
-
-	$content = preg_replace('/<duration>/i',' | ',$content);
-	$content = preg_replace('/<\/duration>/i','',$content);
+	$content = preg_replace('/<quote>/i','„',$content);
+	$content = preg_replace('/<\/quote>/i','”',$content);
 
 
 	$content = preg_replace('/<ido>(.*?)<\/ido>/i','<span class="ido text-muted"> | $1 </span>',$content);
@@ -155,11 +147,6 @@ function getContent($q) {
 				return "<".$matches[1]." ".$matches[2].">".preg_replace('/:/si',' — ',$matches[3])."</".$matches[1].">";
 			},$content);
 	}
-
-	$content = preg_replace('/<csopvez>(.*?)<\/csopvez>/is','<p class="leaderTip">$1</p>',$content);
-
-
-
 
 	//tan átalakítása sorszámozással 
 		$content = preg_replace_callback('/<(tanacs|otlet|colop)>(.*?)<\/(tanacs|otlet|colop)>/si',
