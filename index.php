@@ -33,7 +33,7 @@ $menu = [
 			'lelkinap_a_halarol' => 'Lelkinap a háláról',
 			'lelkinap_a_miatyankrol' => 'Lelkinap a Miatyánkról',
 			'betlehemes_lelkinap' => 'Betlehemes lelkinap',
-			'lelkinap_a_megtisztulasarol' => 'Lelkinap a megtisztulásról',
+			'lelkinap_a_megtisztulasrol' => 'Lelkinap a megtisztulásról',
 			'lelkinap_a_nevadas_erejerol' => 'Lelkinap a névadás erejéről',
 		]
 	],
@@ -68,6 +68,8 @@ function return_output($file){
     return ob_get_clean();
 }
 
+$jatekok = getJatekok();
+
 $content = getContent($q);
 
 if($q == 'cimlap') {
@@ -76,6 +78,8 @@ if($q == 'cimlap') {
 	$content .= getContent('copyrightoldal');
 	$content .= getContent('tartalomjegyzek');
 }
+
+
 
 function getContent($q) {	
 	global $title;
@@ -117,7 +121,8 @@ function getContent($q) {
 
 	/* Játékok betétele */
 	//Könyvkiadás miatt most az egysoros változatokkal //
-	$jatekok = getJatekok();
+	
+	
 	$content = preg_replace_callback('/<jatek id=("|)([^"]*)("| ).*?\/>/i', 'insertJatek', $content);
 
 	$content = preg_replace('/<organizerTip>/i','<p class="organizerTip">',$content);
@@ -205,7 +210,8 @@ function getJatekok() {
 	$jatekok = [];
 	foreach($matches[0] as $match) {
 		$jatek = [];
-		preg_match('/<jatek id=(.*?)>/i',$match,$id);
+		preg_match('/<jatek id=\"(.*?)\">/i',$match,$id);
+		
 		$jatek['id'] = trim($id[1]);
 		
 
@@ -218,6 +224,7 @@ function getJatekok() {
 		$jatekok[$jatek['id']] = $jatek;
 
 	}
+	
 	return $jatekok;
 
 }
@@ -226,7 +233,7 @@ function insertJatek($match) {
 	global $jatekok;
 
 	$jatek = $jatekok[trim($match[2])];
-	
+		
 	
 	if(!$jatek) {
 		return "<div class='alert alert-danger'>Hiányzik egy játék! Nincs olyan, hogy: ".trim($match[2])."!</div>";
