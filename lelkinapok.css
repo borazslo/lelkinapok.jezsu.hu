@@ -82,6 +82,13 @@
 			padding-right: 20px;
 		}
 		
+		.downArrow:link, .downArrow:visited {
+			color: white;
+		}
+		.downArrow:hover, .downArrow:active {
+			color: #005580;
+		}
+		
 		p {
 			display: block;
 		    margin-block-start: 0.3em;
