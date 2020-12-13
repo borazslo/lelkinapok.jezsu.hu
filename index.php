@@ -117,7 +117,7 @@ function getContent($q) {
 	}
 
 
-
+	$content = preg_replace('/<div class="card">/i','<div class="card extratext">',$content);
 
 	/* Játékok betétele */
 	//Könyvkiadás miatt most az egysoros változatokkal //
@@ -132,6 +132,7 @@ function getContent($q) {
 	$content = preg_replace('/<quote>/i','<span class="quote">„',$content);
 	$content = preg_replace('/<\/quote>/i','”</span>',$content);
 
+	
 
 	$content = preg_replace('/<duration>/i',' | ',$content);
 	$content = preg_replace('/<\/duration>/i','',$content);
