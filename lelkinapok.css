@@ -1,13 +1,4 @@
-		#accordionGames .card-header:after, .stories .card-header:after {
-		    font-family: 'FontAwesome';  
-		    content: "\f068";
-		    float: right; 
-		}
-		#accordionGames .card-header.collapsed:after, .stories .card-header.collapsed:after {
-    		/* symbol for "collapsed" panels */
-    		content: "\f067"; 
-		}
-
+		
 		.chapter-title {
 			display: block;
 			font-size: 2.5rem;
@@ -89,6 +80,10 @@
 			color: #005580;
 		}
 		
+		tbody {
+			vertical-align: top;
+		}
+		
 		p {
 			display: block;
 		    margin-block-start: 0.3em;
@@ -98,56 +93,7 @@
 			text-align: justify;
 		}
 
-		.quote {
-			/*font-style: italic*/
-		}
-
-		.underconstruction {
-			color: grey;
-		}
-
-		.tips {
-			margin-left: 20%;
-		}
-
-		.story {
-			margin-left: 5%;
-			margin-right: 5%;
-		}
-
-		.game > h3 {
-			margin-block-end: 0.2em;
-		}
-
-
-		h1:after {
-		    content:' ';
-		    display:block;
-		    /*border:2px solid #d0d0d0;
-		    border-radius:4px;
-		    -webkit-border-radius:4px;
-		    -moz-border-radius:4px;
-		    box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
-		    -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
-		    -moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
-			*/
-		}
-
-		h2:after {
-		    content:' ';
-		    display:block;
-			/*
-		    border:1px solid #d0d0d0;
-		    border-radius:4px;
-		    -webkit-border-radius:4px;
-		    -moz-border-radius:4px;
-		    box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
-		    -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
-		    -moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
-			*/
-		}
-
-
+	
 		ul     	     {
 		list-style: none;
 	     }
@@ -164,9 +110,6 @@
 		}
 		#contents li:before, #contributors li:before{
     			content: none;
-		}
-		.row {
-  			  display: flex;
 		}
 		.nav-item {
 			text-indent: unset;
