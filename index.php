@@ -92,6 +92,12 @@ function getContent($q) {
 	$content = preg_replace('/<head>.*<\/head>/si','',$content);
 	$content = preg_replace('/<(\/|)(html|body)>/i','',$content);
 
+
+	if($q == 'lelkinap_az_utrol' AND $_REQUEST['q'] != 'tippek_es_trukkok') {
+		$title = 'Lelkinap az Útról';
+		$content = preg_replace('/<otlet>(.*?)<\/otlet>/si','',$content);
+	}
+
 	if ($title) $content = '<span class="chapter-title" id="'.$q.'">'.$title.'</span>'.$content;
 
 	if($q == 'jatekok') {
@@ -151,6 +157,9 @@ function getContent($q) {
 	}
 
 	$content = preg_replace('/<csopvez>(.*?)<\/csopvez>/is','<p class="leaderTip">$1</p>',$content);
+
+
+
 
 	//tan átalakítása sorszámozással 
 		$content = preg_replace_callback('/<(tanacs|otlet|colop)>(.*?)<\/(tanacs|otlet|colop)>/si',
