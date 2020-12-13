@@ -41,7 +41,7 @@ $menu = [
 	'mellekletek' => [
 		'Mellékletek',
 		'menu' => [
-			'hogyan_vezess' => 'Hogyan vezess kiscsoportos?',
+			'hogyan_vezess' => 'Hogyan vezess kiscsoportot?',
 			'jatekok' => 'Játékok'
 		]
 	]
