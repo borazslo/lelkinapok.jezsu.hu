@@ -138,6 +138,7 @@
 			font-size: 1.3rem;
 			color: white;			
 		}
+<<<<<<< Updated upstream
 		#tarisznya {
 			width: 80%;
 			display: block;
@@ -147,6 +148,11 @@
 			text-align: center;
 		}
 
+=======
+.number {
+	margin-left: -1em;
+}
+>>>>>>> Stashed changes
 		/*
 		####################################################
 		M E D I A  Q U E R I E S
