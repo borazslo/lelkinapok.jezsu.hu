@@ -153,7 +153,7 @@ function getContent($q) {
 			function ($matches) {  
 				if($matches[1] == 'tanacs') $matches[3] = 'tanács'; 
 				elseif($matches[1] == 'otlet') $matches[3] = 'ötlet';
-				elseif($matches[1] == 'colop') $matches[3] = 'cölöp';
+				elseif($matches[1] == 'colop') $matches[3] = 'cölöpök';
 			//echo "<pre>"; print_r($matches);
 					return '<dl class="row">
 					<dt class="col-sm-2">'.$matches[3].'</dt>
