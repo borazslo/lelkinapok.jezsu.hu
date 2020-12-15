@@ -182,7 +182,20 @@
 			#sub-title {			
 				font-size: 1.3rem;
 			}
-		}
+			
+			.number {
+				position: relative;
+			}
+			h1 .number {
+				margin-left: 0em;
+			}
+			h2 .number, h3 .number, h4 .number {
+				margin-left: 0em;
+			}
+			}
+			.number::after {
+				content: ' ';
+			}
 
 		/* Medium devices  */
 		@media (max-width: 768px) {  
