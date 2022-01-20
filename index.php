@@ -2,6 +2,8 @@
 
 define("TMPFOLDER", sys_get_temp_dir ( ).'/'); // chown www-data
 
+$lang = 'hu';
+
 $menu = [	
 	'bevezeto' => [
 		'Bevezető',
@@ -49,13 +51,14 @@ $menu = [
 
 
 if(isset($_REQUEST['q'])) {	
-	if(file_exists($_REQUEST['q'].".html")) {
+	if(file_exists($lang."/".$_REQUEST['q'].".html")) {
 		$q = $_REQUEST['q'];		
 	} elseif($_REQUEST['q'] == 'tippek_es_trukkok') {
 		$q = 'lelkinap_az_utrol';
 	} elseif ($_REQUEST['q'] == '') {
 		$q = 'cimlap';
 	} else {
+		
 		$q = '404';
 	}
 } else {
@@ -70,20 +73,20 @@ function return_output($file){
 
 $jatekok = getJatekok();
 
-$content = getContent($q);
+$content = getContent($q, 'hu');
 
 if($q == 'cimlap') {
-	$content .= getContent('video');
-	$content .= getContent('bevezeto');
-	$content .= getContent('copyrightoldal');
-	$content .= getContent('tartalomjegyzek');
+	$content .= getContent('video', 'hu');
+	$content .= getContent('bevezeto', 'hu');
+	$content .= getContent('copyrightoldal', 'hu');
+	$content .= getContent('tartalomjegyzek', 'hu');
 }
 
 
 
-function getContent($q) {	
+function getContent($q, $lang = 'hu') {	
 	global $title;
-	$content = return_output($q.".html");
+	$content = return_output($lang."/".$q.".html");
 
 	if(preg_match('/<title>(.*?)<\/title>/s',$content,$matches))
 		$title = $matches[1];
