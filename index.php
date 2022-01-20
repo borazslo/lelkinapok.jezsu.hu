@@ -2,70 +2,139 @@
 
 define("TMPFOLDER", sys_get_temp_dir ( ).'/'); // chown www-data
 
-$lang = 'hu';
-
-$menu = [	
-	'bevezeto' => [
-		'Bevezető',
-		'menu' => [
-			'cimlap' => 'Címlap',
-			'cimlap#video' => 'Köszöntő',
-			'cimlap#bevezeto' => 'Bevezető',
-			'cimlap#copyrightoldal' => 'Szerzők és adatok',
-			'cimlap#tartalomjegyzek' => 'Tartalomjegyzék'
-		]
-	],
-	'alapgondolatok' => [
-		'Alapgondolatok',
-		'menu' => [
-			'alapgondolatok#cim_1-1' => 'Iskolai lelkigyakorlatos kultúránk története',
-			'alapgondolatok#cim_1-2' => 'A siker',
-			'alapgondolatok#cim_1-3' => 'Emberképünk',
-			'alapgondolatok#cim_1-4' => 'Együttműködés',
-			'alapgondolatok#cim_1-5' => 'Csend',
-			'alapgondolatok#cim_1-6' => 'Alkotás és a szimbólumok',
-			'alapgondolatok#cim_1-7' => 'Kortárs vezetés és kiscsoport',
-			'alapgondolatok#cim_1-8' => 'Megosztás'
-		] 
-	],
-	'lelkinap_leirasok' => [
-		'Lelkinap leírások',
-		'menu' => [
-			'lelkinap_az_utrol' => 'Lelkinap az útról',
-			'lelkinap_a_halarol' => 'Lelkinap a háláról',
-			'lelkinap_a_miatyankrol' => 'Lelkinap a Miatyánkról',
-			'betlehemes_lelkinap' => 'Betlehemes lelkinap',
-			'lelkinap_a_megtisztulasrol' => 'Lelkinap a megtisztulásról',
-			'lelkinap_a_nevadas_erejerol' => 'Lelkinap a névadás erejéről',
-		]
-	],
-	'tippek_es_trukkok' => 'Tippek és Trükkök',
-	'mellekletek' => [
-		'Mellékletek',
-		'menu' => [
-			'hogyan_vezess' => 'Hogyan vezess kiscsoportot?',
-			'jatekok' => 'Játékok'
-		]
-	]
-];
+$lang = 'en';
 
 
-if(isset($_REQUEST['q'])) {	
-	if(file_exists($lang."/".$_REQUEST['q'].".html")) {
-		$q = $_REQUEST['q'];		
-	} elseif($_REQUEST['q'] == 'tippek_es_trukkok') {
-		$q = 'lelkinap_az_utrol';
-	} elseif ($_REQUEST['q'] == '') {
-		$q = 'cimlap';
+if($lang == 'hu') {
+	$homeTitle = 'Lelkinapok';
+	$menu = [	
+		'bevezeto' => [
+			'Bevezető',
+			'menu' => [
+				'cimlap' => 'Címlap',
+				'cimlap#video' => 'Köszöntő',
+				'cimlap#bevezeto' => 'Bevezető',
+				'cimlap#copyrightoldal' => 'Szerzők és adatok',
+				'cimlap#tartalomjegyzek' => 'Tartalomjegyzék'
+			]
+		],
+		'alapgondolatok' => [
+			'Alapgondolatok',
+			'menu' => [
+				'alapgondolatok#cim_1-1' => 'Iskolai lelkigyakorlatos kultúránk története',
+				'alapgondolatok#cim_1-2' => 'A siker',
+				'alapgondolatok#cim_1-3' => 'Emberképünk',
+				'alapgondolatok#cim_1-4' => 'Együttműködés',
+				'alapgondolatok#cim_1-5' => 'Csend',
+				'alapgondolatok#cim_1-6' => 'Alkotás és a szimbólumok',
+				'alapgondolatok#cim_1-7' => 'Kortárs vezetés és kiscsoport',
+				'alapgondolatok#cim_1-8' => 'Megosztás'
+			] 
+		],
+		'lelkinap_leirasok' => [
+			'Lelkinap leírások',
+			'menu' => [
+				'lelkinap_az_utrol' => 'Lelkinap az útról',
+				'lelkinap_a_halarol' => 'Lelkinap a háláról',
+				'lelkinap_a_miatyankrol' => 'Lelkinap a Miatyánkról',
+				'betlehemes_lelkinap' => 'Betlehemes lelkinap',
+				'lelkinap_a_megtisztulasrol' => 'Lelkinap a megtisztulásról',
+				'lelkinap_a_nevadas_erejerol' => 'Lelkinap a névadás erejéről',
+			]
+		],
+		'tippek_es_trukkok' => 'Tippek és Trükkök',
+		'mellekletek' => [
+			'Mellékletek',
+			'menu' => [
+				'hogyan_vezess' => 'Hogyan vezess kiscsoportot?',
+				'jatekok' => 'Játékok'
+			]
+		]
+	];
+
+
+	if(isset($_REQUEST['q'])) {	
+		if(file_exists($lang."/".$_REQUEST['q'].".html")) {
+			$q = $_REQUEST['q'];		
+		} elseif($_REQUEST['q'] == 'tippek_es_trukkok') {
+			$q = 'lelkinap_az_utrol';
+		} elseif ($_REQUEST['q'] == '') {
+			$q = 'cimlap';
+		} else {
+			
+			$q = '404';
+		}
 	} else {
-		
-		$q = '404';
+		$q = 'cimlap';
 	}
-} else {
-	$q = 'cimlap';
+
+} elseif ($lang == 'en') {
+	$homeTitle = 'Retreats';
+
+	$menu = [	
+		'bevezeto' => [
+			'Introduction',
+			'menu' => [
+				'home' => 'Home',
+				'home#introduction' => 'Introduction',
+				'home#copyrightoldal' => 'Authors',
+				'home#tartalomjegyzek' => 'Table of Contents'
+			]
+		],
+		'alapgondolatok' => [
+			'Basic principles',
+			'menu' => [
+				'alapgondolatok#cim_1-1' => 'The history of our school retreat culture',
+				'alapgondolatok#cim_1-2' => 'A successful school retreat',
+				'alapgondolatok#cim_1-3' => 'Our view of the human person',
+				'alapgondolatok#cim_1-4' => 'Cooperation',
+				'alapgondolatok#cim_1-5' => 'Silence',
+				'alapgondolatok#cim_1-6' => 'Creativity and symbols',
+				'alapgondolatok#cim_1-7' => 'Peer leaders and small groups',
+				'alapgondolatok#cim_1-8' => 'Sharing'
+			] 
+		],
+		'lelkinap_leirasok' => [
+			'Retreats',
+			'menu' => [
+				'lelkinap_az_utrol' => 'The journey',
+				'lelkinap_a_halarol' => 'Gratefulness',
+				'lelkinap_a_miatyankrol' => 'Ther Lord\'s prayer',
+				'betlehemes_lelkinap' => 'The nativity',
+				'lelkinap_a_megtisztulasrol' => 'Becoming clean',
+				'lelkinap_a_nevadas_erejerol' => 'The power in a name',
+			]
+		],
+		'tippek_es_trukkok' => 'Tips and tricks',
+		'mellekletek' => [
+			'Appendices',
+			'menu' => [
+				'hogyan_vezess' => 'How to lead a group',
+				'games' => 'Games'
+			]
+		]
+	];
+
+
+	if(isset($_REQUEST['q'])) {	
+		if(file_exists($lang."/".$_REQUEST['q'].".html")) {
+			$q = $_REQUEST['q'];		
+		} elseif($_REQUEST['q'] == 'tippek_es_trukkok') {
+			$q = 'lelkinap_az_utrol';
+		} elseif ($_REQUEST['q'] == '') {
+			$q = 'home';
+		} else {
+			
+			$q = '404';
+		}
+	} else {
+		$q = 'home';
+	}
 }
 
+
 function return_output($file){
+	if(!file_exists($file)) die('Hiányzó fájl: '.$file);
     ob_start();
     include $file;
     return ob_get_clean();
@@ -73,7 +142,7 @@ function return_output($file){
 
 $jatekok = getJatekok();
 
-$content = getContent($q, 'hu');
+$content = getContent($q, $lang);
 
 if($q == 'cimlap') {
 	$content .= getContent('video', 'hu');
@@ -82,12 +151,15 @@ if($q == 'cimlap') {
 	$content .= getContent('tartalomjegyzek', 'hu');
 }
 
-
+if($q == 'home') {
+	$content .= getContent('introduction', 'en');
+	$content .= getContent('tartalomjegyzek', 'hu');
+}
 
 function getContent($q, $lang = 'hu') {	
 	global $title;
 	$content = return_output($lang."/".$q.".html");
-
+	
 	if(preg_match('/<title>(.*?)<\/title>/s',$content,$matches))
 		$title = $matches[1];
 	else $title = false;
@@ -203,7 +275,8 @@ include 'layout.html';
 
 
 function getJatekok() {
-	$file['content'] = return_output("jatekok.html");
+	global $lang; 
+	$file['content'] = return_output($lang."/jatekok.html");
 	
 	preg_match_all('/<jatek(.*?)<\/jatek>/si', $file['content'], $matches);
 	

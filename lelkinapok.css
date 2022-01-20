@@ -127,7 +127,7 @@
 		content: "";
 	    }
 
-		.cimlap {
+		.cimlap, .home {
 			 background-image: url("cimlapkep.jpg");
 			 background-position: top;
 			 background-size: cover;

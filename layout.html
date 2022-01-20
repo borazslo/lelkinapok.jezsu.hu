@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 
-	<title><?php echo $title; ?> | Lelkinapok</title>
+	<title><?php echo $title; ?> | <?php echo $homeTitle; ?></title>
 	
 	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
@@ -24,7 +24,7 @@
 
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-		<a class="navbar-brand" href="<?php echo $_SERVER['PHP_SELF']; ?>">Lelkinapok</a>  
+		<a class="navbar-brand" href="<?php echo $_SERVER['PHP_SELF']; ?>"><?php echo $homeTitle; ?></a>  
 		<!-- Collapse button -->
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
