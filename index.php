@@ -2,7 +2,15 @@
 
 define("TMPFOLDER", sys_get_temp_dir ( ).'/'); // chown www-data
 
-$lang = 'en';
+if ( $_SERVER['HTTP_HOST'] == 'schoolretreats.jezsu.hu' ) {
+    $lang = 'en';
+}
+else if ( $_SERVER['HTTP_HOST'] == 'lelkinapok.jezsu.hu' ) {
+    $lang = 'hu';
+}
+else
+    $lang = 'hu';
+
 
 
 if($lang == 'hu') {
