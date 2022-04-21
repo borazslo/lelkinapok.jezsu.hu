@@ -114,10 +114,10 @@ if($lang == 'hu') {
 			]
 		],
 		'tippek_es_trukkok' => 'Tips and tricks',
-		'mellekletek' => [
+		'appendices' => [
 			'Appendices',
 			'menu' => [
-				'hogyan_vezess' => 'How to lead a group',
+				'how_to_lead' => 'How to lead a group',
 				'games' => 'Games'
 			]
 		]
