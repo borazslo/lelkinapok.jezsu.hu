@@ -161,7 +161,7 @@ if($q == 'cimlap') {
 
 if($q == 'home') {
 	$content .= getContent('introduction', 'en');
-	$content .= getContent('tartalomjegyzek', 'hu');
+	$content .= getContent('toc', 'en');
 }
 
 function getContent($q, $lang = 'hu') {
