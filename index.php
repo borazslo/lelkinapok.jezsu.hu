@@ -162,7 +162,7 @@ if($q == 'cimlap') {
 if($q == 'home') {
 	$content .= getContent('introduction', 'en');
   $content .= getContent('copyright', 'en');
-	$content .= getContent('toc', 'en');  
+	$content .= getContent('toc', 'en');
 }
 
 function getContent($q, $lang = 'hu') {
@@ -285,7 +285,9 @@ include 'layout.html';
 
 function getJatekok() {
 	global $lang;
-	$file['content'] = return_output($lang."/jatekok.html");
+  if($lang == 'hu') $name = 'jatekok';
+  else if($lang == 'en') $name = 'games';
+	$file['content'] = return_output($lang."/".$name.".html");
 
 	preg_match_all('/<jatek(.*?)<\/jatek>/si', $file['content'], $matches);
 
