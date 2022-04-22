@@ -85,7 +85,7 @@ if($lang == 'hu') {
 			'menu' => [
 				'home' => 'Home',
 				'home#introduction' => 'Introduction',
-				'home#copyrightoldal' => 'Authors',
+				'home#copyright' => 'Authors',
 				'home#tartalomjegyzek' => 'Table of Contents'
 			]
 		],
@@ -161,7 +161,8 @@ if($q == 'cimlap') {
 
 if($q == 'home') {
 	$content .= getContent('introduction', 'en');
-	$content .= getContent('toc', 'en');
+  $content .= getContent('copyright', 'en');
+	$content .= getContent('toc', 'en');  
 }
 
 function getContent($q, $lang = 'hu') {
