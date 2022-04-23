@@ -184,7 +184,7 @@ function getContent($q, $lang = 'hu') {
 
 	if ($title) $content = '<span class="chapter-title" id="'.$q.'">'.$title.'</span>'.$content;
 
-	if($q == 'jatekok') {
+	if($q == 'jatekok' OR $q == 'games') {
 		$content = preg_replace('/<cím>(.*?)<\/cím>/si','<h2>$1</h2><div>',$content);
 		$content = preg_replace('/<helyszin>(.*?)<\/helyszin>/si','',$content);
 		$content = preg_replace('/<tipus>(.*?)<\/tipus>/si','<p><i>$1</i></p>',$content);
@@ -234,10 +234,18 @@ function getContent($q, $lang = 'hu') {
 
 	//tan átalakítása sorszámozással
 		$content = preg_replace_callback('/<(tanacs|otlet|colop)>(.*?)<\/(tanacs|otlet|colop)>/si',
-			function ($matches) {
-				if($matches[1] == 'tanacs') $matches[3] = 'tanács';
-				elseif($matches[1] == 'otlet') $matches[3] = 'ötlet';
-				elseif($matches[1] == 'colop') $matches[3] = 'cölöpök';
+			function ($matches)  use($lang)  {
+			
+				if($lang == 'hu') {			
+					if($matches[1] == 'tanacs') $matches[3] = 'tanács';
+					elseif($matches[1] == 'otlet') $matches[3] = 'ötlet';
+					elseif($matches[1] == 'colop') $matches[3] = 'cölöpök';
+				} else if ($lang == 'en' ) {
+					if($matches[1] == 'tanacs') $matches[3] = 'Note';
+					elseif($matches[1] == 'otlet') $matches[3] = 'Tip';
+					elseif($matches[1] == 'colop') $matches[3] = 'Keep in Mind';
+				
+				}
 			//echo "<pre>"; print_r($matches);
 					return '<dl class="row">
 					<dt class="col-sm-2">'.$matches[3].'</dt>
