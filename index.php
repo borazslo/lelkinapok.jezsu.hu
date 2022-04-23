@@ -109,8 +109,8 @@ if($lang == 'hu') {
 				'lelkinap_a_halarol' => 'Gratefulness',
 				'lelkinap_a_miatyankrol' => 'Ther Lord\'s prayer',
 				'betlehemes_lelkinap' => 'The nativity',
-				'lelkinap_a_megtisztulasrol' => 'Becoming clean',
-				'lelkinap_a_nevadas_erejerol' => 'The power in a name',
+				'retreat_5_becoming_clean' => 'Becoming clean',
+				'retreat_6_the_name' => 'The power in a name',
 			]
 		],
 		'tippek_es_trukkok' => 'Tips and tricks',
