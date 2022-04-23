@@ -86,7 +86,7 @@ if($lang == 'hu') {
 				'home' => 'Home',
 				'home#introduction' => 'Introduction',
 				'home#copyright' => 'Authors',
-				'home#tartalomjegyzek' => 'Table of Contents'
+				'home#toc' => 'Table of Contents'
 			]
 		],
 		'basic_principles' => [
@@ -108,7 +108,7 @@ if($lang == 'hu') {
 				'lelkinap_az_utrol' => 'The journey',
 				'lelkinap_a_halarol' => 'Gratefulness',
 				'lelkinap_a_miatyankrol' => 'Ther Lord\'s prayer',
-				'betlehemes_lelkinap' => 'The nativity',
+				'retreat_4_nativity' => 'The nativity',
 				'retreat_5_becoming_clean' => 'Becoming clean',
 				'retreat_6_the_name' => 'The power in a name',
 			]
