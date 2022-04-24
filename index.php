@@ -106,7 +106,7 @@ if($lang == 'hu') {
 			'Retreats',
 			'menu' => [
 				'lelkinap_az_utrol' => 'The journey',
-				'lelkinap_a_halarol' => 'Gratefulness',
+				'reatreat_2_greatfulness' => 'Gratefulness',
 				'lelkinap_a_miatyankrol' => 'Ther Lord\'s prayer',
 				'retreat_4_nativity' => 'The nativity',
 				'retreat_5_becoming_clean' => 'Becoming clean',
@@ -235,8 +235,8 @@ function getContent($q, $lang = 'hu') {
 	//tan átalakítása sorszámozással
 		$content = preg_replace_callback('/<(tanacs|otlet|colop)>(.*?)<\/(tanacs|otlet|colop)>/si',
 			function ($matches)  use($lang)  {
-			
-				if($lang == 'hu') {			
+
+				if($lang == 'hu') {
 					if($matches[1] == 'tanacs') $matches[3] = 'tanács';
 					elseif($matches[1] == 'otlet') $matches[3] = 'ötlet';
 					elseif($matches[1] == 'colop') $matches[3] = 'cölöpök';
@@ -244,7 +244,7 @@ function getContent($q, $lang = 'hu') {
 					if($matches[1] == 'tanacs') $matches[3] = 'Note';
 					elseif($matches[1] == 'otlet') $matches[3] = 'Tip';
 					elseif($matches[1] == 'colop') $matches[3] = 'Keep in Mind';
-				
+
 				}
 			//echo "<pre>"; print_r($matches);
 					return '<dl class="row">
