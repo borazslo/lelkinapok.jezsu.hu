@@ -106,8 +106,8 @@ if($lang == 'hu') {
 			'Retreats',
 			'menu' => [
 				'lelkinap_az_utrol' => 'The journey',
-				'reatreat_2_greatfulness' => 'Gratefulness',
-				'lelkinap_a_miatyankrol' => 'Ther Lord\'s prayer',
+				'retreat_2_greatfulness' => 'Gratefulness',
+				'retreat_3_the_lords_prayer' => 'Ther Lord\'s prayer',
 				'retreat_4_nativity' => 'The nativity',
 				'retreat_5_becoming_clean' => 'Becoming clean',
 				'retreat_6_the_name' => 'The power in a name',
@@ -310,7 +310,8 @@ function getJatekok() {
 
 		foreach(array('cím','helyszin','tipus','leiras','forrás','egymondat') as $key ) {
 			preg_match('/<'.$key.'>(.*?)<\/'.$key.'>/si', $match, $value);
-			$jatek[$key] = trim($value[1]);
+			if(isset($value[1]))
+				$jatek[$key] = trim($value[1]);
 
 		}
 
