@@ -105,7 +105,7 @@ if($lang == 'hu') {
 		'lelkinap_leirasok' => [
 			'Retreats',
 			'menu' => [
-				'lelkinap_az_utrol' => 'The journey',
+				'retreat_1_the_journey' => 'The journey',
 				'retreat_2_greatfulness' => 'Gratefulness',
 				'retreat_3_the_lords_prayer' => 'Ther Lord\'s prayer',
 				'retreat_4_nativity' => 'The nativity',
@@ -113,7 +113,7 @@ if($lang == 'hu') {
 				'retreat_6_the_name' => 'The power in a name',
 			]
 		],
-		'tippek_es_trukkok' => 'Tips and tricks',
+		'tips_and_tricks' => 'Tips and tricks',
 		'appendices' => [
 			'Appendices',
 			'menu' => [
@@ -128,8 +128,11 @@ if($lang == 'hu') {
 		if(file_exists($lang."/".$_REQUEST['q'].".html")) {
 			$q = $_REQUEST['q'];
 		} elseif($_REQUEST['q'] == 'tippek_es_trukkok') {
-			$q = 'lelkinap_az_utrol';
-		} elseif ($_REQUEST['q'] == '') {
+			$q = 'lelkinap_az_utrol';		
+		} elseif($_REQUEST['q'] == 'tips_and_tricks') {
+			$q = 'retreat_1_the_journey';
+		}
+		elseif ($_REQUEST['q'] == '') {
 			$q = 'home';
 		} else {
 
